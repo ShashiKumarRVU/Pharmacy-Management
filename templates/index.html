@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulk URL Shortener</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="background">
+        <h1 class="heading">&#128279; URL Shortener</h1><br>
+        <form method="POST">
+            <input type="text" id="name" name="name" placeholder="Name" style="width: 10%">
+            <input type="text" id="urls" name="urls" placeholder="Enter URLs (one per line)" style="width: 50%;">
+            <input type="submit" value="Shorten">
+        </form>
+    </div>
+    
+    <div class="container">
+        <form method="POST">
+            <input type="text" id="search_query" name="search_query" placeholder="Search by Name">
+            <button type="submit">Search</button>
+        </form>
+        
+        {% if shortened_urls %}
+            <table>
+                <tr class="container coloumns">
+                    <th>Serial Number</th>
+                    <th>Name</th>
+                    <th>Original</th>
+                    <th>Shortened</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+                {% for url in shortened_urls %}
+                    <tr>
+                        <td>{{ url[0] }}</td>
+                        <td>{{ url[1] }}</td>
+                        <td>{{ url[2] }}</td>
+                        <td><a href="{{ url[3] }}">{{ url[3] }}</a></td>
+                        <td>{{ url[4] }}</td>
+                        <td>
+                            <form action="/delete/{{ url[0] }}" method="POST">
+                                <button type="submit" style="background-color: #f44336; color: white;">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+</body>
+</html>
