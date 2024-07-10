@@ -1,0 +1,3 @@
+Flask
+Gunicorn
+Pyshorteners==1.0.1
